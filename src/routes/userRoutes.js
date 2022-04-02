@@ -98,7 +98,7 @@ router.get("/users/profile", auth, async (req, res) => {
 
 router.patch("/users/updateProfile", auth, async (req, res) =>{
     const updates = Object.keys(req.body)
-    const allowedUpdates = ["name", "email", "age","gender","contactNo"]
+    const allowedUpdates = ["name", "email", "age","gender","contactNo","fId"]
     const isValid = updates.every((update) => {
         return allowedUpdates.includes(update)
     })
