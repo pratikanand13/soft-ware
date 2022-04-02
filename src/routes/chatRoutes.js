@@ -90,5 +90,57 @@ router.get("/chats/getChat",auth,async(req, res)=>{
 })
 
 
+router.post("/chats/initialize",auth,async(req, res)=>{
+    try {
+        const user = req.user
+        let arr=[]
+        arr = user.chats.filter(ch => ch.toId == req.body.id)
+        const person = await User.findById(req.body.id)
+        if(person._id.toString()==req.user._id.toString()) {
+            res.status(404).send("Cannot send messages to yourself")
+            return
+        }
+        if(arr.length==0) {
+            const chat = new Chat({
+                user1:user._id,
+                name1:user.name,
+                user2:person._id,
+                name2:person.name,
+                chats:[]
+            })
+            await chat.save()
+
+            user.chats = user.chats.concat({
+                chatId:chat._id,
+                name:person.name,
+                toId:person._id
+            })
+            await user.save();
+
+            person.chats = person.chats.concat({
+                chatId:chat._id,
+                name:user.name,
+                toId:user._id
+            })
+            await person.save()
+            const fId = person.fId
+            res.status(200).send({
+                chat,
+                fId
+            })
+            return
+        }
+        const fId = person.fId
+        const chat = await Chat.findById(arr[0].chatId)
+        res.status(200).send({
+            chat,
+            fId
+        })
+    } catch (e) {
+        res.status(500).send(e)
+    }
+})
+
+
 
 module.exports =router
