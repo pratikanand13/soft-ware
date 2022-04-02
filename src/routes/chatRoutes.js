@@ -75,9 +75,9 @@ router.post("/chats/sendChat",auth,async (req, res)=>{
 
 
 
-router.get("/chats/getChat",auth,async(req, res)=>{
+router.get("/chats/:id",auth,async(req, res)=>{
     try {
-        const chat = await Chat.findById(req.body.id)
+        const chat = await Chat.findById(req.params.id)
         if(chat.user1.toString()==req.user._id.toString() || chat.user2.toString()==req.user._id.toString()) {
             res.status(200).send(chat)
             return

@@ -36,9 +36,9 @@ router.post("/requests/addRequest",auth,async (req, res) => {
 
 
 
-router.get("/requests/getRequest",auth,async(req,res) => {
+router.get("/requests/:id",auth,async(req,res) => {
     try {
-        const request = await Request.findById(req.body.id)
+        const request = await Request.findById(req.params.id)
         res.status(200).send(request)
     } catch (e) {
         res.status(500).send(e)
