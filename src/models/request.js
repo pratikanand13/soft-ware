@@ -27,6 +27,15 @@ const requestSchema = new mongoose.Schema(
         },
         description:{
             type:String
+        },
+        title: {
+            type:String
+        },
+        collectedAmount:{
+            type:Number
+        },
+        driveLink:{
+            type:String
         }
     },
     {

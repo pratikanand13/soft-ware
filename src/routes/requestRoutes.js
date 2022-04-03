@@ -49,9 +49,7 @@ router.get("/requests/getRequest/:id",auth,async(req,res) => {
 
 router.get("/requests/getAll",auth,async(req,res) => {
     try {
-        console.log(1)
         const requests = await Request.find({})
-        console.log(requests)
         res.status(200).send(requests)
     } catch (e) {
         res.status(500).send(e)
@@ -64,7 +62,8 @@ router.patch("/requests/updateRequest",auth,async(req,res) => {
     try {
         const request = await Request.findById(req.body.id)
         if(request.createdBy.toString() == req.user._id.toString()) {
-            request.completed = req.body.completed
+            if(req.body.completed) request.completed = req.body.completed
+            if(req.body.collectedAmount) request.collectedAmount = req.body.collectedAmount
             await request.save()
             res.status(200).send(request)
             return
