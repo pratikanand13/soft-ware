@@ -78,4 +78,24 @@ router.patch("/requests/updateRequest",auth,async(req,res) => {
 
 
 
+router.patch("/requests/increment",async(req,res) => {
+    try {
+        const request = await Request.findById(req.body.id)
+        // if(request.createdBy.toString() == req.user._id.toString()) {
+            // if(req.body.completed) request.completed = req.body.completed
+            if(req.body.collectedAmount) request.collectedAmount = req.body.collectedAmount
+            await request.save()
+            res.status(200).send(request)
+            // return
+        // }
+        
+        // res.status(401).send("Cannot update other's request.")
+
+    } catch (e) {
+        res.status(500).send(e)
+    }
+})
+
+
+
 module.exports=router
