@@ -32,7 +32,8 @@ const requestSchema = new mongoose.Schema(
             type:String
         },
         collectedAmount:{
-            type:Number
+            type:Number,
+            default:0
         },
         driveLink:{
             type:String
