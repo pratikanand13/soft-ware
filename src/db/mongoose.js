@@ -1,4 +1,2 @@
 const mongoose = require('mongoose')
-mongoose.connect(process.env.MONGODB_URL,{})
-.then(ok=>console.log('MongoDb connected'))
-.catch(err=>console.log(err))
+mongoose.connect("mongodb://127.0.0.1:2017/soft-ware")

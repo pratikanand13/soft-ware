@@ -5,14 +5,13 @@ const chatRouter = require('./routes/chatRoutes')
 const requestRouter = require('./routes/requestRoutes')
 
 const app = express()
-const host = '0.0.0.0';
-const port = process.env.PORT
+const port = process.env.PORT || 3000
 
 app.use(express.json())
 app.use(userRouter)
 app.use(chatRouter)
 app.use(requestRouter)
 
-app.listen(port,host, () => {
+app.listen(port, () => {
     console.log('Server is up on port ' + port)
 })
